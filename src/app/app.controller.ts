@@ -13,7 +13,7 @@ export class AppController {
     return retorno;
   }
 
-  @Get('exemplo')
+  // @Get('exemplo')
   exemplo() {
     return this.appService.solucionaExemplo();
   }

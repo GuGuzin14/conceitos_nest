@@ -9,7 +9,7 @@ export class AppController {
   // /home/hello
   @Get('hello')
   getHello(): string {
-    const retorno = 'Retorno'
+    const retorno = 'Retorno';
     return retorno;
   }
 

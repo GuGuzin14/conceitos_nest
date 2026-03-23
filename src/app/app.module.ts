@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConceitosAutomaticoModule } from 'src/conceitos-automatico/conceitos-automatico.module';
+// import { ConceitosAutomaticoModule } from 'src/conceitos-automatico/conceitos-automatico.module';
 import { RecadosModule } from 'src/recados/recados.module';
 
 @Module({

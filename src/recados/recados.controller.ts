@@ -32,29 +32,26 @@ export class RecadosController {
   findAll(@Query() pagination: any) {
     //const { limit = 10, offset = 10 } = pagination;
     //return `Retorna todos os recados. limit=${limit}, Offset=${offset}`;
-    return this.recadosService.helloWorld();
+    return this.recadosService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    console.log(id);
-    return `Essa rota retorna UM recado ID: ${id}`;
+    return this.recadosService.findOne(id);
   }
 
   @Post()
-  create(@Body('Nova chave') body: string) {
-    return body;
+  create(@Body() body: any) {
+    return this.recadosService.create(body);
   }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() body: any) {
-    return {
-      id,
-      ...body,
-    };
+    return this.recadosService.update(id, body);
   }
 
   @Delete(':id')
   delete(@Param('id') id: string) {
-    return `Essa rota foi deletada: ${id}`;
+    return this.recadosService.remove(id)
   }
 }

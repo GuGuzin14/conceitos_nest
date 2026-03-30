@@ -16,22 +16,17 @@ Content-Type: application/json
 {
     "texto": "Novo Recado",
     "de": "Joana",
-    "para": "João",
-    "lido": false,
-    "data": "2026-03-24T22:28:19.343Z"
+    "para": "João"
   }
 
-###
+### Atualiza o Recado
 PATCH {{baseURL}}/recados/2/
 Content-Type: application/json
 
 {
-    "texto": "Atualizar Recado de Teste",
-    "de": "Joana",
-    "para": "João",
-    "lido": false,
-    "data": "2026-03-24T22:28:19.343Z"
-  }
+    "texto": "Recado",
+    "lido": true
+}
 
 ###Deleta um Recado
 DELETE  {{baseURL}}/recados/2/

@@ -1,8 +1,8 @@
 export class RecadoEntity {
-  id: number | undefined;
+  id: number | undefined; // Não  
   texto: string | undefined;
   de: string | undefined;
   para: string | undefined;
-  lido: boolean | undefined;
-  data: Date | undefined;
+  lido: boolean | undefined; //Não  
+  data: Date | undefined; //Não
 }

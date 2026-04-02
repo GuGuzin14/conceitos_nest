@@ -11,6 +11,7 @@ import {
   Patch,
   Delete,
   Query,
+  ParseIntPipe,
 } from '@nestjs/common';
 
 import { RecadosService } from './recados.service';
@@ -57,7 +58,8 @@ export class RecadosController {
   }
 
   @Delete(':id')
-  delete(@Param('id') id: string) {
+  delete(@Param('id', ParseIntPipe) id: number) {
+    console.log(id, typeof id)
     return this.recadosService.remove(id)
   }
 }

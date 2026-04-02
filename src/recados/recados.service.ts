@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { RecadoEntity } from './entities/recado.entity';
-import { CreateContextOptions } from 'vm';
 import { CreateRecadoDto } from './dto/create-recado.dto';
 import { UpdateRecadoDto } from './dto/update-recado.dto';
 
@@ -61,9 +60,9 @@ export class RecadosService {
     return this.recados[recadoExistenteIndex];
   }
 
-  remove(id: string){
+  remove(id: number){
     const recadoExistenteIndex = this.recados.findIndex(
-      item => item.id === +id,
+      item => item.id === id,
     );
 
     if (recadoExistenteIndex < 0){

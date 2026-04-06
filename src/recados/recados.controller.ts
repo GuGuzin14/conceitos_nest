@@ -43,20 +43,20 @@ export class RecadosController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', ParseIntPipe) id: number) {
     return this.recadosService.findOne(id);
   }
 
   @Post()
-  create(@Body() CreateRecadoDto: CreateRecadoDto) {
-    return this.recadosService.create(CreateRecadoDto);
+  create(@Body() createRecadoDto: CreateRecadoDto) {
+    return this.recadosService.create(createRecadoDto);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() UpdateRecadoDto: UpdateRecadoDto) {
-    return this.recadosService.update(id, UpdateRecadoDto);
+  update(@Param('id', ParseIntPipe) id: number, @Body() updateRecadoDto: UpdateRecadoDto) {
+    return this.recadosService.update(id, updateRecadoDto);
   }
-
+  
   @Delete(':id')
   delete(@Param('id', ParseIntPipe) id: number) {
     console.log(id, typeof id)

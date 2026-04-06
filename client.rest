@@ -7,7 +7,7 @@ GET {{baseURL}}/recados/
 &offset=10
 
 ###Lista apenas um recado
-GET {{baseURL}}/recados/2/
+GET {{baseURL}}/recados/4/
 
 ###Cria um recado
 POST {{baseURL}}/recados/
@@ -20,11 +20,11 @@ Content-Type: application/json
   }
 
 ### Atualiza o Recado
-PATCH {{baseURL}}/recados/2/
+PATCH {{baseURL}}/recados/4/
 Content-Type: application/json
 
 {
-    "texto": "Recado",
+    "texto": "Recado 1",
     "lido": true
 }
 

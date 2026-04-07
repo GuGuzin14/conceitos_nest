@@ -32,8 +32,39 @@ Content-Type: application/json
 DELETE  {{baseURL}}/recados/2/
 
 
+#
 
 
+# PESSOAS
+### Lista todos as pessoas
+GET {{baseURL}}/pessoas/
+?limit=10
+&offset=10
+
+###Lista apenas uma pessoa
+GET {{baseURL}}/pessoas/4/
+
+###Cria uma pessoa
+POST {{baseURL}}/pessoas/
+Content-Type: application/json
+
+{
+    "email": "email@email.com",
+    "password": "123456",
+    "nome": "Teste"
+}
+
+### Atualiza a pessoa
+PATCH {{baseURL}}/pessoa/4/
+Content-Type: application/json
+
+{
+    "texto": "Recado 1",
+    "lido": true
+}
+
+###Deleta uma pessoa
+DELETE  {{baseURL}}/pessoas/4/
 
 
 ### AppControllerGetHello

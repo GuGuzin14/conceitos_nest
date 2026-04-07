@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { RecadosModule } from 'src/recados/recados.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { PessoasModule } from 'src/pessoas/pessoas.module';
 
 @Module({
   imports: [
@@ -16,7 +17,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       autoLoadEntities: true, //Carrega entidades sem precisar especifica-las
       synchronize: true //Sincroniza tudo com o DB, isso não deve ser usado em Produção
     }),
-    RecadosModule
+    RecadosModule,
+    PessoasModule,
   ],
   controllers: [AppController],
   providers: [AppService],

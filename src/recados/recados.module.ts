@@ -3,10 +3,12 @@ import { RecadosController } from './recados.controller';
 import { RecadosService } from './recados.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RecadoEntity } from './entities/recado.entity';
+import { PessoasModule } from 'src/pessoas/pessoas.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([RecadoEntity])
+    TypeOrmModule.forFeature([RecadoEntity]),
+    PessoasModule
   ],
   controllers: [  
     RecadosController

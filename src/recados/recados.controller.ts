@@ -12,12 +12,16 @@ import {
   Delete,
   Query,
   ParseIntPipe,
+  UsePipes,
+  UseInterceptors,
 } from '@nestjs/common';
 
 import { RecadosService } from './recados.service';
 import { CreateRecadoDto } from './dto/create-recado.dto';
 import { UpdateRecadoDto } from './dto/update-recado.dto';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
+import { TimingConnectionInterceptor } from 'src/common/interceptor/timing-connection.interceptor';
+import { ErrorHandlingInterceptor } from 'src/common/interceptor/error-handling.interceptor';
 
 //CRUD
 // Create -> POST -> Criar Recado
@@ -36,15 +40,18 @@ import { PaginationDto } from 'src/common/dto/pagination.dto';
 export class RecadosController {
   constructor(private readonly recadosService: RecadosService) {}
 
+  @UseInterceptors(TimingConnectionInterceptor, ErrorHandlingInterceptor)
   @HttpCode(HttpStatus.OK)
   @Get()
   async findAll(@Query() paginationDto: PaginationDto) {
+    console.log('Recados Controller FindAll executado')
     const recados = await this.recadosService.findAll(paginationDto)
     return recados;
   }
 
+  @UseInterceptors(TimingConnectionInterceptor, ErrorHandlingInterceptor)
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number) {
+  findOne(@Param('id') id: number) {
     return this.recadosService.findOne(id);
   }
 

@@ -7,7 +7,7 @@ GET {{baseURL}}/recados/
 &offset=0
 
 ###Lista apenas um recado
-GET {{baseURL}}/recados/6/
+GET {{baseURL}}/recados/13/
 
 ###Cria um recado
 POST {{baseURL}}/recados/
@@ -20,7 +20,7 @@ Content-Type: application/json
   }
 
 ### Atualiza o Recado
-PATCH {{baseURL}}/recados/6/
+PATCH {{baseURL}}/recados/7/
 Content-Type: application/json
 
 {
@@ -29,7 +29,7 @@ Content-Type: application/json
 }
 
 ###Deleta um Recado
-DELETE  {{baseURL}}/recados/5/
+DELETE  {{baseURL}}/recados/7/
 
 
 #
@@ -46,7 +46,7 @@ GET {{baseURL}}/pessoas/
 &offset=10
 
 ###Lista apenas uma pessoa
-GET {{baseURL}}/pessoas/4/
+GET {{baseURL}}/pessoas/13/
 
 ###Cria uma pessoa
 POST {{baseURL}}/pessoas/
@@ -68,7 +68,7 @@ Content-Type: application/json
 }
 
 ###Deleta uma pessoa
-DELETE  {{baseURL}}/pessoas/11/
+DELETE  {{baseURL}}/pessoas/13/
 
 
 ### AppControllerGetHello

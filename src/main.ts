@@ -1,15 +1,19 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import { ValidationPipe } from '@nestjs/common';
+import { ParseIntIdPipe } from './common/pipes/parse-int-id.pipe';
+import { AddHeaderInterceptor } from './common/interceptor/add-header.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.useGlobalPipes(new ValidationPipe({
-    whitelist: true, //Remove campos que não estão no DTO
-    forbidNonWhitelisted: true, // Levantar erro quando o campo não existir
-    transform: true, // transforma tipos de parâmetros e DTOs (ex.: query string para number)
-  })
+app.useGlobalPipes(new ValidationPipe({
+  whitelist: true, //Remove campos que não estão no DTO
+  forbidNonWhitelisted: true, // Levantar erro quando o campo não existir
+  transform: true, // transforma tipos de parâmetros e DTOs (ex.: query string para number)
+}),
+new ParseIntIdPipe(),
 );
+app.useGlobalInterceptors(new AddHeaderInterceptor());
   await app.listen(3000);
 }
 bootstrap();

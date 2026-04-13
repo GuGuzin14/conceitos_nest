@@ -17,6 +17,7 @@ export class RecadosService {
   ){}
 
  async findAll( paginationDto?: PaginationDto){
+  console.log('Recados Service FindAll executado')
     const {limit = 10, offset = 0} = paginationDto || {};
     const recados = this.recadoRepository.find({
       take:limit, // Quantos registros serão exibidos por página

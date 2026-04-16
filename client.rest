@@ -5,6 +5,7 @@
 GET {{baseURL}}/recados/
 ?limit=2
 &offset=0
+Authorization: Bearer 123456
 
 ###Lista apenas um recado
 GET {{baseURL}}/recados/13/

@@ -3,7 +3,6 @@ import { ArgumentMetadata, BadGatewayException, BadRequestException, Injectable,
 @Injectable()
 export class ParseIntIdPipe implements PipeTransform{
     transform(value: any, metadata: ArgumentMetadata) {
-        console.log('ParseIntPipe Executado')
         if(metadata.type !== 'param' || metadata.data !== 'id'){
             return value;
         }

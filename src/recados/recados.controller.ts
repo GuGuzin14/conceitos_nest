@@ -22,6 +22,9 @@ import { UpdateRecadoDto } from './dto/update-recado.dto';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
 import { TimingConnectionInterceptor } from 'src/common/interceptor/timing-connection.interceptor';
 import { ErrorHandlingInterceptor } from 'src/common/interceptor/error-handling.interceptor';
+import { SimpleCacheInterceptor } from 'src/common/interceptor/simple-cache.interceptor';
+import { ChangeDataInterceptor } from 'src/common/interceptor/change-data.interceptor';
+import { AuthTokenInterceptor } from 'src/common/interceptor/auth-token.interceptor';
 
 //CRUD
 // Create -> POST -> Criar Recado
@@ -35,7 +38,7 @@ import { ErrorHandlingInterceptor } from 'src/common/interceptor/error-handling.
 
 // DTO - Data Transfer Object -> Objeto de transferencia de dados
 // DTO -> Objeto simples -> Validar dados / transformar dados
-
+@UseInterceptors(AuthTokenInterceptor)
 @Controller('recados')
 export class RecadosController {
   constructor(private readonly recadosService: RecadosService) {}
@@ -44,7 +47,6 @@ export class RecadosController {
   @HttpCode(HttpStatus.OK)
   @Get()
   async findAll(@Query() paginationDto: PaginationDto) {
-    console.log('Recados Controller FindAll executado')
     const recados = await this.recadosService.findAll(paginationDto)
     return recados;
   }
@@ -67,7 +69,6 @@ export class RecadosController {
   
   @Delete(':id')
   delete(@Param('id', ParseIntPipe) id: number) {
-    console.log(id, typeof id)
     return this.recadosService.remove(id)
   }
 }

@@ -15,17 +15,18 @@ import {
   UsePipes,
   UseInterceptors,
   Req,
+  BadRequestException,
 } from '@nestjs/common';
 
 import { RecadosService } from './recados.service';
 import { CreateRecadoDto } from './dto/create-recado.dto';
 import { UpdateRecadoDto } from './dto/update-recado.dto';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
-import { TimingConnectionInterceptor } from 'src/common/interceptor/timing-connection.interceptor';
-import { ErrorHandlingInterceptor } from 'src/common/interceptor/error-handling.interceptor';
-import { SimpleCacheInterceptor } from 'src/common/interceptor/simple-cache.interceptor';
-import { ChangeDataInterceptor } from 'src/common/interceptor/change-data.interceptor';
-import { AuthTokenInterceptor } from 'src/common/interceptor/auth-token.interceptor';
+import { TimingConnectionInterceptor } from 'src/common/interceptors/timing-connection.interceptor';
+import { ErrorHandlingInterceptor } from 'src/common/interceptors/error-handling.interceptor';
+import { SimpleCacheInterceptor } from 'src/common/interceptors/simple-cache.interceptor';
+import { ChangeDataInterceptor } from 'src/common/interceptors/change-data.interceptor';
+import { AuthTokenInterceptor } from 'src/common/interceptors/auth-token.interceptor';
 
 //CRUD
 // Create -> POST -> Criar Recado
@@ -49,7 +50,9 @@ export class RecadosController {
   async findAll(@Query() paginationDto: PaginationDto, @Req() req: Request) {
     console.log('RecadosController', req['user'])
     const recados = await this.recadosService.findAll(paginationDto)
-    return recados;
+
+    throw new Error('Mensagem de ERRO')
+    // return recados;
   }
 
   @Get(':id')

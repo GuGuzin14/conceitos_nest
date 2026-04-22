@@ -8,7 +8,7 @@ GET {{baseURL}}/recados/
 Authorization: Bearer 123456
 
 ###Lista apenas um recado
-GET {{baseURL}}/recados/13/
+GET {{baseURL}}/recados/7/
 
 ###Cria um recado
 POST {{baseURL}}/recados/

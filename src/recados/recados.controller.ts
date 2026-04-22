@@ -14,6 +14,7 @@ import {
   ParseIntPipe,
   UsePipes,
   UseInterceptors,
+  Req,
 } from '@nestjs/common';
 
 import { RecadosService } from './recados.service';
@@ -43,15 +44,14 @@ import { AuthTokenInterceptor } from 'src/common/interceptor/auth-token.intercep
 export class RecadosController {
   constructor(private readonly recadosService: RecadosService) {}
 
-  @UseInterceptors(TimingConnectionInterceptor, ErrorHandlingInterceptor)
   @HttpCode(HttpStatus.OK)
   @Get()
-  async findAll(@Query() paginationDto: PaginationDto) {
+  async findAll(@Query() paginationDto: PaginationDto, @Req() req: Request) {
+    console.log('RecadosController', req['user'])
     const recados = await this.recadosService.findAll(paginationDto)
     return recados;
   }
 
-  @UseInterceptors(TimingConnectionInterceptor, ErrorHandlingInterceptor)
   @Get(':id')
   findOne(@Param('id') id: number) {
     return this.recadosService.findOne(id);

@@ -17,25 +17,24 @@ export class RecadosService {
   ){}
 
  async findAll( paginationDto?: PaginationDto){
-  console.log('Recados Service FindAll executado')
     const {limit = 10, offset = 0} = paginationDto || {};
     const recados = this.recadoRepository.find({
       take:limit, // Quantos registros serão exibidos por página
       skip:offset,// Quantos registros deves ser pulados
-      relations: ['de', 'para'],
-      order: {
-        id: 'desc',
-      },
-      select:{
-        de: {
-          id: true,
-          nome: true,
-        },
-        para: {
-          id: true,
-          nome: true,
-        },
-      },
+      // relations: ['de', 'para'],
+      // order: {
+      //   id: 'desc',
+      // },
+      // select:{
+      //   de: {
+      //     id: true,
+      //     nome: true,
+      //   },
+      //   para: {
+      //     id: true,
+      //     nome: true,
+      //   },
+      // },
     });
 
     return recados;

@@ -7,7 +7,6 @@ export class ErrorHandlingInterceptor implements NestInterceptor {
         context: ExecutionContext, 
         next: CallHandler<any>,
     ){
-        console.log('ErrorHandlingInterceptor Executado ANTES');
 
         return next.handle().pipe(
             catchError(error => {

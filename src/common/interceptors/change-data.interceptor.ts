@@ -9,7 +9,6 @@ export class ChangeDataInterceptor implements NestInterceptor {
         context: ExecutionContext, 
         next: CallHandler<any>,
     ){
-        console.log('ChangeDataInterceptor Executado ANTES');
     
         return next.handle().pipe(
             map(data => {

@@ -6,7 +6,6 @@ import { NextFunction, Request, Response } from "express";
 
 export class OutroMiddleware implements NestMiddleware{
     use(req: Request, res: Response, next: NextFunction) {
-        console.log('OutroMiddleware: Olá')
         const authorization = req.headers?.authorization;
 
         if (authorization){
@@ -25,7 +24,6 @@ export class OutroMiddleware implements NestMiddleware{
         // })
 
         next()
-        console.log('OutroMiddleware: Tchau')
         
     }
 }

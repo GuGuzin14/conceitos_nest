@@ -25,7 +25,7 @@ PATCH {{baseURL}}/recados/7/
 Content-Type: application/json
 
 {
-    "texto": "Teste de recado",
+    "texto": "Teste de recado 2",
     "lido": true
 }
 

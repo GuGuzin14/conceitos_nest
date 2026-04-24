@@ -4,24 +4,18 @@ import {
   Body,
   Controller,
   Get,
-  HttpStatus,
-  HttpCode,
   Param,
   Post,
   Patch,
   Delete,
   Query,
   ParseIntPipe,
-  UseInterceptors,
-  Req,
-  UseGuards,
 } from '@nestjs/common';
 
 import { RecadosService } from './recados.service';
 import { CreateRecadoDto } from './dto/create-recado.dto';
 import { UpdateRecadoDto } from './dto/update-recado.dto';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
-import { IsAdminGuard } from 'src/common/guards/is-admin.guard';
 
 //CRUD
 // Create -> POST -> Criar Recado
@@ -39,10 +33,8 @@ import { IsAdminGuard } from 'src/common/guards/is-admin.guard';
 export class RecadosController {
   constructor(private readonly recadosService: RecadosService) {}
 
-  @UseGuards(IsAdminGuard)
   @Get()
-  async findAll(@Query() paginationDto: PaginationDto, @Req() req: Request) {
-    console.log('RecadosController', req['user'])
+  async findAll(@Query() paginationDto: PaginationDto) {
     const recados = await this.recadosService.findAll(paginationDto)
     return recados;
   }

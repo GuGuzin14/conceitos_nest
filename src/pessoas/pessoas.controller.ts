@@ -2,10 +2,13 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { PessoasService } from './pessoas.service';
 import { CreatePessoaDto } from './dto/create-pessoa.dto';
 import { UpdatePessoaDto } from './dto/update-pessoa.dto';
+import { RecadosUtils } from '../recados/recados.utils';
 
 @Controller('pessoas')
 export class PessoasController {
-  constructor(private readonly pessoasService: PessoasService) {}
+  constructor(private readonly pessoasService: PessoasService,
+    private readonly recadosUtils: RecadosUtils,
+  ) {}
 
   @Post()
   create(@Body() createPessoaDto: CreatePessoaDto) {
@@ -14,6 +17,7 @@ export class PessoasController {
 
   @Get()
   findAll() {
+    console.log(this.recadosUtils.inverteString('Gustavo'))
     return this.pessoasService.findAll();
   }
 

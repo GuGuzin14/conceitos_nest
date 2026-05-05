@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { RecadosModule } from 'src/recados/recados.module';
+import { RecadosModule } from '../recados/recados.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { PessoasModule } from 'src/pessoas/pessoas.module';
+import { PessoasModule } from '../pessoas/pessoas.module';
 
 
 @Module({

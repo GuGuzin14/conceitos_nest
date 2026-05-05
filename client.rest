@@ -8,7 +8,7 @@ GET {{baseURL}}/recados/
 Authorization: Bearer 123456
 
 ###Lista apenas um recado
-GET {{baseURL}}/recados/7/
+GET {{baseURL}}/recados/17/
 
 ###Cria um recado
 POST {{baseURL}}/recados/
@@ -16,8 +16,8 @@ Content-Type: application/json
 
 {
     "texto": "Leo para Gugas",
-    "deId": 13,
-    "paraId": 12
+    "deId": 14,
+    "paraId": 16
   }
 
 ### Atualiza o Recado
@@ -54,7 +54,7 @@ POST {{baseURL}}/pessoas/
 Content-Type: application/json
 
 {
-    "email": "pedro@email.com",
+    "email": "teste@email.com",
     "password": "123456",
     "nome": "pedro"
 }

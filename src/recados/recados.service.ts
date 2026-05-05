@@ -4,9 +4,10 @@ import { CreateRecadoDto } from './dto/create-recado.dto';
 import { UpdateRecadoDto } from './dto/update-recado.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { PessoasService } from 'src/pessoas/pessoas.service';
-import { PaginationDto } from 'src/common/dto/pagination.dto';
+import { PessoasService } from '../pessoas/pessoas.service';
+import { PaginationDto } from '../common/dto/pagination.dto';
 import { off } from 'process';
+import { RecadosUtils } from './recados.utils';
 
 @Injectable()
 export class RecadosService {
@@ -14,6 +15,7 @@ export class RecadosService {
     @InjectRepository(RecadoEntity)
     private readonly recadoRepository: Repository<RecadoEntity>,
     private readonly pessoasService: PessoasService,
+    private readonly recadosUtils: RecadosUtils,
   ){}
 
  async findAll( paginationDto?: PaginationDto){
@@ -41,6 +43,7 @@ export class RecadosService {
   }
 
  async findOne(id: number){
+  console.log(this.recadosUtils.inverteString('Luiz'))
     const recado = await this.recadoRepository.findOne({
       where: {
         id, 

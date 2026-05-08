@@ -10,6 +10,7 @@ import {
   Delete,
   Query,
   ParseIntPipe,
+  Inject,
 } from '@nestjs/common';
 
 import { RecadosService } from './recados.service';
@@ -19,6 +20,7 @@ import { PaginationDto } from '../common/dto/pagination.dto';
 import { UrlParam } from '../common/params/url.param.decorator';
 import { ReqDataParam } from '../common/params/req-data-param.decorator';
 import { RecadosUtils } from './recados.utils';
+import { SERVER_NAME } from 'src/common/constants/server-name.constant';
 
 //CRUD
 // Create -> POST -> Criar Recado
@@ -34,13 +36,17 @@ import { RecadosUtils } from './recados.utils';
 // DTO -> Objeto simples -> Validar dados / transformar dados
 @Controller('recados')
 export class RecadosController {
-  constructor(private readonly recadosService: RecadosService, private readonly recadosUtils: RecadosUtils) {}
+  constructor(
+  private readonly recadosService: RecadosService,
+  private readonly recadosUtils: RecadosUtils,
+  @Inject(SERVER_NAME)
+  private readonly serverName: string,
+
+) {}
 
   @Get()
   async findAll(@Query() paginationDto: PaginationDto,@ReqDataParam('method') method) {
-
-    console.log(method)
-    console.log(this.recadosUtils.inverteString('Luiz'));
+    console.log(this.serverName)
     const recados = await this.recadosService.findAll(paginationDto)
     return recados;
 
@@ -48,6 +54,7 @@ export class RecadosController {
 
   @Get(':id')
   findOne(@Param('id') id: number) {
+    console.log(this.recadosUtils.inverteString('Luiz'))
     return this.recadosService.findOne(id);
   }
 

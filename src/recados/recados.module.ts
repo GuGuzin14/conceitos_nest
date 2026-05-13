@@ -9,6 +9,7 @@ import { ONLY_LOWERCASE_LETTERS_REGEX, REMOVE_SPACES_REGEX, SERVER_NAME } from '
 import { RemoveSpacesRegex } from 'src/common/regex/remove-spaces.regex';
 import { OnlyLowercaseLettersRegex } from 'src/common/regex/only-lowercase-letters.regex';
 import { RegexFactory } from 'src/common/regex/regex.factory';
+import { resolve } from 'path';
 
 @Module({
   imports: [
@@ -38,7 +39,11 @@ import { RegexFactory } from 'src/common/regex/regex.factory';
     },
     {
       provide: REMOVE_SPACES_REGEX, //token
-      useFactory: (regexFactory: RegexFactory) => {
+      useFactory: async (regexFactory: RegexFactory) => {
+        // Espera alguma coisa acontecer
+        console.log('ESPERANDO: Vou aguardar a promise ser resolvida')
+        await new Promise(resolve => setTimeout(resolve, 3000))
+        console.log('PRONTO: Vou aguardar a promise ser resolvida')
        //Meu codigo/lógica
        return regexFactory.create('RemoveSpacesRegex')
     },// Factory

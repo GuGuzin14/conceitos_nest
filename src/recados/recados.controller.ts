@@ -19,8 +19,10 @@ import { UpdateRecadoDto } from './dto/update-recado.dto';
 import { PaginationDto } from '../common/dto/pagination.dto';
 import { ReqDataParam } from '../common/params/req-data-param.decorator';
 import { RecadosUtils } from './recados.utils';
-import { ONLY_LOWERCASE_LETTERS, REMOVE_SPACES_REGEX, SERVER_NAME } from 'src/recados/recados.constant';
+import { ONLY_LOWERCASE_LETTERS_REGEX, REMOVE_SPACES_REGEX, SERVER_NAME } from 'src/recados/recados.constant';
 import type { RegexProtocol } from 'src/common/regex/regex.protocol';
+import { RemoveSpacesRegex } from 'src/common/regex/remove-spaces.regex';
+import { OnlyLowercaseLettersRegex } from 'src/common/regex/only-lowercase-letters.regex';
 
 
 //CRUD
@@ -43,16 +45,18 @@ export class RecadosController {
   @Inject(SERVER_NAME)
   private readonly serverName: string,
   @Inject(REMOVE_SPACES_REGEX)
-  private readonly removeSpacesRegex: RegexProtocol,
-  @Inject(ONLY_LOWERCASE_LETTERS)
-  private readonly onlyLowercaseLetters: RegexProtocol
+  private readonly removeSpacesRegex: RemoveSpacesRegex,
+  @Inject(ONLY_LOWERCASE_LETTERS_REGEX)
+  private readonly onlyLowercaseLettersRegex: OnlyLowercaseLettersRegex,
 
 ) {}
 
   @Get()
   async findAll(@Query() paginationDto: PaginationDto,@ReqDataParam('method') method) {
-    console.log(this.removeSpacesRegex.execute(this.serverName));
-    console.log(this.onlyLowercaseLetters.execute(this.serverName));
+    console.log(this.removeSpacesRegex.execute('REMOVE OS ESPACOS'));
+    console.log(this.onlyLowercaseLettersRegex.execute(
+      'REMOVE OS ESPACOS letra minuscula',
+    ));
     console.log(this.serverName);
     const recados = await this.recadosService.findAll(paginationDto)
     return recados;

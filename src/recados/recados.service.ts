@@ -6,47 +6,34 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PessoasService } from '../pessoas/pessoas.service';
 import { PaginationDto } from '../common/dto/pagination.dto';
-import { RecadosUtils } from './recados.utils';
 
   //Scope.DEFAULT -> É UM SINGLETON
   //Scope.REQUEST -> É UM SINGLETON, é instanciado a cada requisição
   //Scope.TRANSIENT -> É criada uma instancia do provider para cada classe que injetar este provider
 
-@Injectable( { scope: Scope.REQUEST })
+@Injectable( { scope: Scope.DEFAULT})
 export class RecadosService {
+  private count=0;
   constructor(
     @InjectRepository(RecadoEntity)
     private readonly recadoRepository: Repository<RecadoEntity>,
     private readonly pessoasService: PessoasService,
-    private readonly recadosUtils: RecadosUtils,
-  ){}
+  ){
+    this.count++;
+    console.log(`RecadosService ${this.count}`)
+  }
 
  async findAll( paginationDto?: PaginationDto){
     const {limit = 10, offset = 0} = paginationDto || {};
     const recados = this.recadoRepository.find({
       take:limit, // Quantos registros serão exibidos por página
       skip:offset,// Quantos registros deves ser pulados
-      // relations: ['de', 'para'],
-      // order: {
-      //   id: 'desc',
-      // },
-      // select:{
-      //   de: {
-      //     id: true,
-      //     nome: true,
-      //   },
-      //   para: {
-      //     id: true,
-      //     nome: true,
-      //   },
-      // },
     });
 
     return recados;
   }
 
  async findOne(id: number){
-  console.log(this.recadosUtils.inverteString('Luiz'))
     const recado = await this.recadoRepository.findOne({
       where: {
         id, 

@@ -17,12 +17,8 @@ import { RecadosService } from './recados.service';
 import { CreateRecadoDto } from './dto/create-recado.dto';
 import { UpdateRecadoDto } from './dto/update-recado.dto';
 import { PaginationDto } from '../common/dto/pagination.dto';
-import { ReqDataParam } from '../common/params/req-data-param.decorator';
-import { RecadosUtils } from './recados.utils';
-import { ONLY_LOWERCASE_LETTERS_REGEX, REMOVE_SPACES_REGEX, SERVER_NAME } from 'src/recados/recados.constant';
-import type { RegexProtocol } from 'src/common/regex/regex.protocol';
-import { RemoveSpacesRegex } from 'src/common/regex/remove-spaces.regex';
-import { OnlyLowercaseLettersRegex } from 'src/common/regex/only-lowercase-letters.regex';
+import { MY_DYNAMIC_CONFIG, MyDynamicModuleConfigs } from 'src/my-dynamic/my-dynamic.module';
+
 
 
 //CRUD
@@ -40,24 +36,10 @@ import { OnlyLowercaseLettersRegex } from 'src/common/regex/only-lowercase-lette
 @Controller('recados')
 export class RecadosController {
   constructor(
-  private readonly recadosService: RecadosService,
-  private readonly recadosUtils: RecadosUtils,
-  @Inject(SERVER_NAME)
-  private readonly serverName: string,
-  @Inject(REMOVE_SPACES_REGEX)
-  private readonly removeSpacesRegex: RemoveSpacesRegex,
-  @Inject(ONLY_LOWERCASE_LETTERS_REGEX)
-  private readonly onlyLowercaseLettersRegex: OnlyLowercaseLettersRegex,
-
-) {}
+  private readonly recadosService: RecadosService){}
 
   @Get()
-  async findAll(@Query() paginationDto: PaginationDto,@ReqDataParam('method') method) {
-    console.log(this.removeSpacesRegex.execute('REMOVE OS ESPACOS'));
-    console.log(this.onlyLowercaseLettersRegex.execute(
-      'REMOVE OS ESPACOS letra minuscula',
-    ));
-    console.log(this.serverName);
+  async findAll(@Query() paginationDto: PaginationDto) {
     const recados = await this.recadosService.findAll(paginationDto)
     return recados;
 
@@ -65,7 +47,6 @@ export class RecadosController {
 
   @Get(':id')
   findOne(@Param('id') id: number) {
-    console.log(this.recadosUtils.inverteString('Luiz'))
     return this.recadosService.findOne(id);
   }
 

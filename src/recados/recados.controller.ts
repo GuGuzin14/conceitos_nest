@@ -17,9 +17,6 @@ import { RecadosService } from './recados.service';
 import { CreateRecadoDto } from './dto/create-recado.dto';
 import { UpdateRecadoDto } from './dto/update-recado.dto';
 import { PaginationDto } from '../common/dto/pagination.dto';
-import { MY_DYNAMIC_CONFIG, MyDynamicModuleConfigs } from 'src/my-dynamic/my-dynamic.module';
-
-
 
 //CRUD
 // Create -> POST -> Criar Recado

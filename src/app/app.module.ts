@@ -5,15 +5,28 @@ import { RecadosModule } from '../recados/recados.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PessoasModule } from '../pessoas/pessoas.module';
 import { ConfigModule } from '@nestjs/config';
+import * as Joi from '@hapi/joi'
 
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      // envFilePath: '.env', //Busca arquivo de variaveis de ambiente para usar
+      validationSchema: Joi.object({
+        DATABASE_TYPE:Joi.required(),
+        DATABASE_HOST:Joi.required(),
+        DATABASE_PORT:Joi.number().default(5432),
+        DATABASE_USERNAME:Joi.required(),
+        DATABASE_DATABASE:Joi.required(),
+        DATABASE_PASSWORD:Joi.required(),
+        DATABASE_AUTOLOADENTITIES:Joi.number().min(0).max(1).default(0),
+        DATABASE_SYNCHRONIZE:Joi.number().min(0).max(1).default(0),
+      }),
+    }),
     TypeOrmModule.forRoot({
       type: process.env.DATABASE_TYPE as 'postgres',
       host: process.env.DATABASE_HOST,
-      port: process.env.DATABASE_PORT ? Number(process.env.DATABASE_PORT) : undefined,
+      port: Number(process.env.DATABASE_PORT),
       username: process.env.DATABASE_USERNAME,
       database: process.env.DATABASE_DATABASE,
       password: process.env.DATABASE_PASSWORD,
@@ -28,8 +41,4 @@ import { ConfigModule } from '@nestjs/config';
   exports: [],
 })
 export class AppModule {
-  constructor(){
-    console.log(process.env.ESSA_E_UMA_VARIAVEL_1)
-    console.log(process.env.ESSA_E_UMA_VARIAVEL_2)
-  }
 }

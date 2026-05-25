@@ -6,6 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PessoasService } from '../pessoas/pessoas.service';
 import { PaginationDto } from '../common/dto/pagination.dto';
+import { ConfigService } from '@nestjs/config';
 
   //Scope.DEFAULT -> É UM SINGLETON
   //Scope.REQUEST -> É UM SINGLETON, é instanciado a cada requisição
@@ -18,9 +19,10 @@ export class RecadosService {
     @InjectRepository(RecadoEntity)
     private readonly recadoRepository: Repository<RecadoEntity>,
     private readonly pessoasService: PessoasService,
+    private readonly configService: ConfigService,
   ){
-    this.count++;
-    console.log(`RecadosService ${this.count}`)
+    const databaseUsername = this.configService.get('DATABASE_USERNAME')
+    console.log({databaseUsername})
   }
 
  async findAll( paginationDto?: PaginationDto){

@@ -11,10 +11,7 @@ export class PessoasService {
   constructor(
     @InjectRepository(Pessoa)
     private readonly pessoaRepository: Repository<Pessoa>
-  ) {
-    this.count++;
-    console.log(`PessoasService ${this.count}`)
-  }
+  ) {}
 
   async create(createPessoaDto: CreatePessoaDto) {
     const dadosPessoas = {

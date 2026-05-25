@@ -6,9 +6,11 @@ import { RecadoEntity } from './entities/recado.entity';
 import { PessoasModule } from '../pessoas/pessoas.module';
 import { RecadosUtils } from './recados.utils';
 import { MyDynamicModule } from 'src/my-dynamic/my-dynamic.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule,
     TypeOrmModule.forFeature([RecadoEntity]),
     forwardRef(() => PessoasModule),
     MyDynamicModule.register({

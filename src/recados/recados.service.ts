@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, Scope } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException, Scope } from '@nestjs/common';
 import { RecadoEntity } from './entities/recado.entity';
 import { CreateRecadoDto } from './dto/create-recado.dto';
 import { UpdateRecadoDto } from './dto/update-recado.dto';
@@ -6,7 +6,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PessoasService } from '../pessoas/pessoas.service';
 import { PaginationDto } from '../common/dto/pagination.dto';
-import { ConfigService } from '@nestjs/config';
+import type { ConfigType } from '@nestjs/config';
+import recadosConfig from './recados.config';
 
   //Scope.DEFAULT -> É UM SINGLETON
   //Scope.REQUEST -> É UM SINGLETON, é instanciado a cada requisição
@@ -19,10 +20,10 @@ export class RecadosService {
     @InjectRepository(RecadoEntity)
     private readonly recadoRepository: Repository<RecadoEntity>,
     private readonly pessoasService: PessoasService,
-    private readonly configService: ConfigService,
+    @Inject(recadosConfig.KEY)
+    private readonly recadosConfiguration: ConfigType<typeof recadosConfig>,
   ){
-    const databaseUsername = this.configService.get('DATABASE_USERNAME')
-    console.log({databaseUsername})
+
   }
 
  async findAll( paginationDto?: PaginationDto){

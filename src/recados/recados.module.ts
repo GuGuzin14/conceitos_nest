@@ -7,16 +7,13 @@ import { PessoasModule } from '../pessoas/pessoas.module';
 import { RecadosUtils } from './recados.utils';
 import { MyDynamicModule } from 'src/my-dynamic/my-dynamic.module';
 import { ConfigModule } from '@nestjs/config';
+import recadosConfig from './recados.config';
 
 @Module({
   imports: [
-    ConfigModule,
+    ConfigModule.forFeature(recadosConfig),
     TypeOrmModule.forFeature([RecadoEntity]),
     forwardRef(() => PessoasModule),
-    MyDynamicModule.register({
-      apiKey: 'Aqui vem a ApiKey',
-      apiUrl: 'Url da Api'
-    })
   ],
   controllers: [RecadosController],
   providers: [RecadosService, RecadosUtils],

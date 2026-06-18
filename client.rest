@@ -54,19 +54,18 @@ POST {{baseURL}}/pessoas/
 Content-Type: application/json
 
 {
-    "email": "teste@email.com",
+    "email": "PYT@email.com",
     "password": "123456",
     "nome": "pedro"
 }
 
 ### Atualiza a pessoa
-PATCH {{baseURL}}/pessoas/13/
+PATCH {{baseURL}}/pessoas/18/
 Content-Type: application/json
 
 {
-    "password": "551234",
-    "nome": "Gugas"
+    "nome": "aaaaaaa"
 }
 
 ###Deleta uma pessoa
-DELETE  {{baseURL}}/pessoas/13/
+DELETE  {{baseURL}}/pessoas/18/

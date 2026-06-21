@@ -50,27 +50,32 @@ Authorization: Bearer {{authToken}}
 
 ###Lista apenas uma pessoa
 GET {{baseURL}}/pessoas/19/
+Authorization: Bearer {{authToken}}
 
 ###Cria uma pessoa
 POST {{baseURL}}/pessoas/
 Content-Type: application/json
 
 {
-    "email": "Merso@email.com",
+    "email": "Batata@email.com",
     "password": "123456",
-    "nome": "emerson"
+    "nome": "Batatinha"
 }
 
 ### Atualiza a pessoa
-PATCH {{baseURL}}/pessoas/18/
+PATCH {{baseURL}}/pessoas/20/
+Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
 {
-    "nome": "aaaaaaa"
+    "nome": "AOOO TCHE TCHE"
 }
 
 ###Deleta uma pessoa
-DELETE  {{baseURL}}/pessoas/18/
+
+DELETE  {{baseURL}}/pessoas/20/
+Authorization: Bearer {{authToken}}
+
 
 
 
@@ -84,6 +89,6 @@ POST {{baseURL}}/auth/
 Content-Type: application/json
 
 {
-    "email": "Merso@email.com",
+    "email": "Batata@email.com",
     "password": "123456"
 }

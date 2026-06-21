@@ -1,10 +1,11 @@
-import { ConflictException, Injectable, NotFoundException, Scope } from '@nestjs/common';
+import { ConflictException, ForbiddenException, Injectable, NotFoundException, Scope } from '@nestjs/common';
 import { CreatePessoaDto } from './dto/create-pessoa.dto';
 import { UpdatePessoaDto } from './dto/update-pessoa.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Pessoa } from './entities/pessoa.entity';
 import { Repository } from 'typeorm';
 import { HashingService } from 'src/auth/hashing/hashing.service';
+import { TokenPayloadDto } from 'src/auth/dto/token-payload.dto';
 
 @Injectable({scope: Scope.TRANSIENT})
 export class PessoasService {
@@ -58,7 +59,7 @@ export class PessoasService {
     return pessoa;
   }
 
-  async update(id: number, updatePessoaDto: UpdatePessoaDto) {
+  async update(id: number, updatePessoaDto: UpdatePessoaDto, tokenPayload: TokenPayloadDto) {
     const dadosPessoa = {
       nome: updatePessoaDto?.nome,
     };
@@ -68,6 +69,8 @@ export class PessoasService {
 
         dadosPessoa['passwordHash'] = passwordHash;
       }
+      
+
     const pessoa = await this.pessoaRepository.preload({
       id,
       ...dadosPessoa,
@@ -77,16 +80,20 @@ export class PessoasService {
     throw new NotFoundException('Pessoa não encontrada');
   }
 
+  if(pessoa.id !== tokenPayload.sub){
+    throw new ForbiddenException('Você não é essa pessoa')
+  }
+
   return this.pessoaRepository.save(pessoa);
   }
 
-  async remove(id: number) {
-    const pessoa = await this.pessoaRepository.findOneBy({
-      id,
-    });
-    if(!pessoa){
-      throw new NotFoundException('Pessoa não encontrada');
-    }
+  async remove(id: number, tokenPayload: TokenPayloadDto) {
+    const pessoa = await this.pessoaRepository.findOne({
+  where: { id },
+});
+    if(pessoa?.id !== tokenPayload.sub){
+    throw new ForbiddenException('Você não é essa pessoa')
+  }
 
     return this.pessoaRepository.remove(pessoa);
   }

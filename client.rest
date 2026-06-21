@@ -45,9 +45,10 @@ DELETE  {{baseURL}}/recados/7/
 GET {{baseURL}}/pessoas/
 ?limit=10
 &offset=10
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE5LCJlbWFpbCI6Ik1lcnNvQGVtYWlsLmNvbSIsImlhdCI6MTc4MjAwNTEwNSwiZXhwIjoxNzgyMDA4NzA1LCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDozMDAwIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIn0.szfRPkLDpkAHQ2sOiD6MDMh4wSvw7I8GgZq0R_NryoI
 
 ###Lista apenas uma pessoa
-GET {{baseURL}}/pessoas/13/
+GET {{baseURL}}/pessoas/19/
 
 ###Cria uma pessoa
 POST {{baseURL}}/pessoas/

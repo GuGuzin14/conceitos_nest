@@ -6,6 +6,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { HashingService } from "./hashing/hashing.service";
 import jwtConfig from "./config/jwt.config";
 import type { ConfigType } from "@nestjs/config";
+import { JwtService } from "@nestjs/jwt";
 
 @Injectable()
 export class AuthService {
@@ -14,7 +15,8 @@ export class AuthService {
         private readonly pessoaRepository: Repository<Pessoa>,
         private readonly hashingService: HashingService,
         @Inject(jwtConfig.KEY)
-        private readonly jwtConfiguration: ConfigType<typeof jwtConfig>
+        private readonly jwtConfiguration: ConfigType<typeof jwtConfig>,
+        private readonly jwtService: JwtService,
     ){
         console.log(jwtConfiguration)
     }
@@ -42,11 +44,23 @@ export class AuthService {
             throw new UnauthorizedException ("Usuario ou senha inválidos");
         }
 
-        // Gerar novo Token JWT e entregar para o usuario
+        const acessToken = await this.jwtService.signAsync(
+        {
+            sub: pessoa?.id,
+            email: pessoa?.email
+        },
+        {
+            audience: this.jwtConfiguration.audience,
+            issuer: this.jwtConfiguration.issuer,
+            secret: this.jwtConfiguration.secret,
+            expiresIn: this.jwtConfiguration.jwtTtl,
+        },
+    
+    );
 
 
         return {
-            message: "Usuario Logado"
+            acessToken,
         };
     }
 }

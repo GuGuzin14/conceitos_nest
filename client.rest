@@ -1,5 +1,6 @@
 @baseURL = http://localhost:3000
-@authToken = {{authenticate.response.body.accessToken}}
+@authToken = {{reAuthenticate.response.body.accessToken}}
+@refreshToken = {{reAuthenticate.response.body.refreshToken}}
 
 # RECADOS
 ### Lista todos os recados
@@ -22,7 +23,7 @@ Content-Type: application/json
   }
 
 ### Atualiza o Recado
-PATCH {{baseURL}}/recados/20/
+PATCH {{baseURL}}/recados/23/
 Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
@@ -32,7 +33,7 @@ Content-Type: application/json
 }
 
 ###Deleta um Recado
-DELETE  {{baseURL}}/recados/20/
+DELETE  {{baseURL}}/recados/23/
 Authorization: Bearer {{authToken}}
 
 
@@ -93,4 +94,14 @@ Content-Type: application/json
 {
     "email": "Batata@email.com",
     "password": "123456"
+}
+
+
+### Re-Autenticação
+# @name reAuthenticate
+POST {{baseURL}}/auth/refresh/
+Content-Type: application/json
+
+{
+    "refreshToken": "{{refreshToken}}"
 }

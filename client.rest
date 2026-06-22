@@ -6,32 +6,34 @@
 GET {{baseURL}}/recados/
 ?limit=10
 &offset=0
-Authorization: Bearer {{authToken}}
+
 
 ###Lista apenas um recado
 GET {{baseURL}}/recados/17/
 
 ###Cria um recado
 POST {{baseURL}}/recados/
+Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
 {
-    "texto": "Leo para Gugas",
-    "deId": 14,
-    "paraId": 16
+    "texto": "CHAMAA",
+    "paraId": 20
   }
 
 ### Atualiza o Recado
-PATCH {{baseURL}}/recados/7/
+PATCH {{baseURL}}/recados/20/
+Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
 {
-    "texto": "Teste de recado 2",
+    "texto": "Teste de recado atualizado",
     "lido": true
 }
 
 ###Deleta um Recado
-DELETE  {{baseURL}}/recados/7/
+DELETE  {{baseURL}}/recados/20/
+Authorization: Bearer {{authToken}}
 
 
 #

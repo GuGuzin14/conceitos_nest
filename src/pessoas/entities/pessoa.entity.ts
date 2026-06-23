@@ -32,4 +32,7 @@ export class Pessoa {
     // Esses recados são relacionados ao campo "para" na entidade recado
     @OneToMany(() => RecadoEntity, recado => recado.para )
     recadosRecebidos!: RecadoEntity[];
+
+    @Column({default: true})
+    active!: boolean;
 }

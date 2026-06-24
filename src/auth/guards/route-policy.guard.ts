@@ -29,11 +29,11 @@ export class RoutePolicyGuard{
 
         const {pessoa}:{pessoa: Pessoa} = tokenPayload
 
-        if(!pessoa.routePolicies?.includes(routePolicyRequired)){
-            throw new UnauthorizedException(
-                `Usuario não tem permissão ${routePolicyRequired}`
-            );
-        }
+        // if(!pessoa.routePolicies?.includes(routePolicyRequired)){
+        //     throw new UnauthorizedException(
+        //         `Usuario não tem permissão ${routePolicyRequired}`
+        //     );
+        // }
 
         return true;
     }

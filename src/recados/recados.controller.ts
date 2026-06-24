@@ -22,11 +22,6 @@ import { PaginationDto } from '../common/dto/pagination.dto';
 import { AuthTokenGuard } from 'src/auth/guards/auth.token.guard';
 import { TokenPayloadParam } from 'src/auth/params/token.payload.param';
 import { TokenPayloadDto } from 'src/auth/dto/token-payload.dto';
-import { RoutePolicyGuard } from 'src/auth/guards/route-policy.guard';
-import { ROUTE_POLICY_KEY } from 'src/auth/auth.constants';
-import { SetRoutePolicy } from 'src/auth/decorators/set-route.decorator';
-import { RoutePolicies } from 'src/auth/enum/route-policies.enum';
-import { AuthAndPolicyGuard } from 'src/auth/guards/auth-and-policy.guard';
 
 //CRUD
 // Create -> POST -> Criar Recado
@@ -57,16 +52,11 @@ export class RecadosController {
     return this.recadosService.findOne(id);
   }
 
-  
-  
-  @SetRoutePolicy(RoutePolicies.createRecado)
-  @UseGuards(AuthAndPolicyGuard)
+  @UseGuards(AuthTokenGuard)
   @Post()
   create(@Body() createRecadoDto: CreateRecadoDto, @TokenPayloadParam() tokenPayload: TokenPayloadDto) {
     return this.recadosService.create(createRecadoDto, tokenPayload);
   }
-  @SetRoutePolicy(RoutePolicies.updateRecado)
-  @UseGuards(AuthAndPolicyGuard)
   @Patch(':id')
   @UseGuards(AuthTokenGuard)
   update(@Param('id', ParseIntPipe) id: number, @Body() updateRecadoDto: UpdateRecadoDto, @TokenPayloadParam() tokenPayload: TokenPayloadDto) {

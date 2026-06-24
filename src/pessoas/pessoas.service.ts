@@ -24,6 +24,7 @@ export class PessoasService {
       nome: createPessoaDto.nome,
       passwordHash,
       email: createPessoaDto.email,
+      routePolicies: createPessoaDto.routePolicies
     };
     
     try {
@@ -47,8 +48,6 @@ export class PessoasService {
   }
 
   async findOne(id: number) {
-    this.count++;
-    console.log(`PessoasService ${this.count} - findOne`);
     const pessoa = await this.pessoaRepository.findOneBy({
       id,
     });

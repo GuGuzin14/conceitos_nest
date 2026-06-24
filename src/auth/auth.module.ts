@@ -8,6 +8,8 @@ import { Pessoa } from "src/pessoas/entities/pessoa.entity";
 import { ConfigModule } from "@nestjs/config";
 import jwtConfig from "./config/jwt.config";
 import { JwtModule } from "@nestjs/jwt";
+import { AuthTokenGuard } from "./guards/auth.token.guard";
+import { RoutePolicyGuard } from "./guards/route-policy.guard";
 
 
 @Global()
@@ -24,8 +26,10 @@ import { JwtModule } from "@nestjs/jwt";
             useClass: BcryptService,
         },
     AuthService,
+    AuthTokenGuard,
+    RoutePolicyGuard,
     ],
-    exports: [HashingService, JwtModule, ConfigModule],
+    exports: [HashingService, JwtModule, ConfigModule, TypeOrmModule, AuthTokenGuard, RoutePolicyGuard],
     controllers: [AuthController],
 })
 export class AuthModule{

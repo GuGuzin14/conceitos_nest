@@ -119,8 +119,13 @@ Content-Type: multipart/form-data; boundary=----BoundaryDelimitadorHttp
 
 ------BoundaryDelimitadorHttp
 Content-Disposition: form-data; name="file"; filename="man.png"
-Content-Type: image/jpeg
+Content-Type: image/png
 
 < ./dev/images/man.png
+------BoundaryDelimitadorHttp
+Content-Disposition: form-data; name="file"; filename="teste.png"
+Content-Type: image/png
+
+< ./dev/images/teste.png
 ------BoundaryDelimitadorHttp--
 

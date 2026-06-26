@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, UseInterceptors, UploadedFile, UploadedFiles } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, UseInterceptors, UploadedFile, UploadedFiles, ParseFilePipe, MaxFileSizeValidator, FileTypeValidator, BadRequestException } from '@nestjs/common';
 import { PessoasService } from './pessoas.service';
 import { CreatePessoaDto } from './dto/create-pessoa.dto';
 import { UpdatePessoaDto } from './dto/update-pessoa.dto';
@@ -52,9 +52,19 @@ export class PessoasController {
   @UseGuards(AuthTokenGuard)
   @UseInterceptors(FilesInterceptor('file'))
   @Post('upload-picture')
-  async uploadPicture(@UploadedFiles() files:Array<Express.Multer.File>, @TokenPayloadParam() tokenPayload: TokenPayloadDto) {
+  async uploadPicture(@UploadedFiles( 
+    new ParseFilePipe({
+    validators: [
+      new MaxFileSizeValidator({maxSize: 10 * (1024 * 1024)}),
+      new FileTypeValidator({fileType: 'image/png'})
+    ],
+  })) files:Array<Express.Multer.File>, @TokenPayloadParam() tokenPayload: TokenPayloadDto) {
     const result: string[] = []
     files.forEach(async file => {
+
+      if(file.size < 1024){
+        throw new BadRequestException('Arquivo muito pequeno');
+      }
 
       const fileExtension = path.extname(file.originalname).toLowerCase().substring(1);
       const fileName = `${randomUUID()}.${fileExtension}`;

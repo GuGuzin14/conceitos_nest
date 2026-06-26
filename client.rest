@@ -118,14 +118,14 @@ Authorization: Bearer {{authToken}}
 Content-Type: multipart/form-data; boundary=----BoundaryDelimitadorHttp
 
 ------BoundaryDelimitadorHttp
-Content-Disposition: form-data; name="file"; filename="man.png"
+Content-Disposition: form-data; name="file"; filename="men.png"
 Content-Type: image/png
 
-< ./dev/images/man.png
-------BoundaryDelimitadorHttp
-Content-Disposition: form-data; name="file"; filename="teste.png"
-Content-Type: image/png
-
-< ./dev/images/teste.png
+< ./dev/images/men.png
 ------BoundaryDelimitadorHttp--
+
+
+
+### Ver Foto
+GET {{baseURL}}/pictures/27.png
 

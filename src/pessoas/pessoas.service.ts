@@ -1,4 +1,4 @@
-import { ConflictException, ForbiddenException, Injectable, NotFoundException, Scope } from '@nestjs/common';
+import { BadRequestException, ConflictException, ForbiddenException, Injectable, NotFoundException, Scope } from '@nestjs/common';
 import { CreatePessoaDto } from './dto/create-pessoa.dto';
 import { UpdatePessoaDto } from './dto/update-pessoa.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -6,6 +6,8 @@ import { Pessoa } from './entities/pessoa.entity';
 import { Repository } from 'typeorm';
 import { HashingService } from 'src/auth/hashing/hashing.service';
 import { TokenPayloadDto } from 'src/auth/dto/token-payload.dto';
+import path from 'path';
+import * as fs from 'fs/promises';
 
 @Injectable({scope: Scope.TRANSIENT})
 export class PessoasService {
@@ -95,5 +97,32 @@ export class PessoasService {
   }
 
     return this.pessoaRepository.remove(pessoa);
+  }
+
+  async uploadPicture(file:Express.Multer.File, tokenPayload: TokenPayloadDto){
+       if (!['image/jpeg', 'image/png'].includes(file.mimetype)) {
+          throw new BadRequestException('Formato inválido. Use JPEG ou PNG.');
+        }
+        if (file.size > 10 * 1024 * 1024) {
+          throw new BadRequestException('Arquivo muito grande. Máx 10 MB.');
+        }
+
+        if(file.size < 1024){
+          throw new BadRequestException ('Arquivo muito pequeno');
+        }
+
+        const pessoa = await this.findOne(tokenPayload.sub)
+
+        const fileExtension = path.extname(file.originalname).toLowerCase().substring(1);
+        const fileName = `${tokenPayload.sub}.${fileExtension}`
+        const fileFullPath = path.resolve(process.cwd(), 'pictures', fileName)
+
+        await fs.writeFile(fileFullPath, file.buffer)
+        
+        pessoa.picture = fileName;
+        
+        await this.pessoaRepository.save(pessoa)
+
+        return pessoa;
   }
 }

@@ -7,6 +7,7 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import {expect, jest} from '@jest/globals';
 import { CreatePessoaDto } from "./dto/create-pessoa.dto";
+import { ConflictException } from "@nestjs/common";
 
 describe('PessoasService', ()=> {
     
@@ -92,6 +93,18 @@ describe('PessoasService', ()=> {
         //O resultado do metodo pessoaService.create retornou a nova pessoa criada?
         expect (result).toEqual(novaPessoa);
     });
+
+        it('deve lançar ConflictException quando email ja existir'), async () => {  
+        jest.spyOn(pessoaRepository, 'save').mockRejectedValue({
+            code: '23505', //codigo de ConflictException
+        });
+
+        
+
+        await expect (pessoaService.create({} as any)).rejects.toThrow(
+            ConflictException,
+        )
+        }
     })
    
 
